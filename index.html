@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Financial Chatbot</title>
+</head>
+<body>
+    <h1>AI Financial Chatbot</h1>
+    <div>
+        <label for="user_input">Ask me anything about finance:</label>
+        <input type="text" id="user_input">
+        <button onclick="getResponse()">Send</button>
+    </div>
+    <div id="chatbox"></div>
+
+    <script>
+        function getResponse() {
+            const user_input = document.getElementById("user_input").value;
+            fetch(`/get?msg=${user_input}`)
+                .then(response => response.text())
+                .then(data => {
+                    const chatbox = document.getElementById("chatbox");
+                    chatbox.innerHTML += `<p><b>You:</b> ${user_input}</p>`;
+                    chatbox.innerHTML += `<p><b>Bot:</b> ${data}</p>`;
+                    document.getElementById("user_input").value = "";
+                });
+        }
+    </script>
+</body>
+</html>
